@@ -19,7 +19,7 @@ defmodule KingdoneWeb.Router do
 
     # get "/", PageController, :home
 
-    live "/", OnboardingLive
+    live "/onboarding", OnboardingLive
   end
 
   # Other scopes may use custom stacks.
