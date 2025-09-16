@@ -1,6 +1,8 @@
 defmodule KingdoneWeb.OnboardingComponents do
   use Phoenix.Component
 
+  attr :paragraphs, :list, required: true
+
   def steward_dialog(assigns) do
     ~H"""
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[800px] max-w-[95vw] bg-[#f5e6d3] bg-opacity-95 rounded-xl border-4 border-[#8B7355] shadow-[0_0_15px_rgba(0,0,0,0.3),inset_0_0_10px_rgba(139,115,85,0.2)] p-6 backdrop-blur-sm">
@@ -24,11 +26,8 @@ defmodule KingdoneWeb.OnboardingComponents do
             </div>
             <div class="absolute left-0 top-[14px] -translate-x-full w-0 h-0 border-t-[12px] border-t-transparent border-r-[20px] border-r-[#f9f3e8] border-b-[12px] border-b-transparent">
             </div>
-            <p class="font-[MedievalSharp] text-[#2c1810] text-lg mb-4">
-              Greetings, my liege. I am Elric the Steward, sworn to guide your daily quests.
-            </p>
-            <p class="font-[MedievalSharp] text-[#2c1810] text-lg">
-              Shall I show you how to marshal your tasks and projects?
+            <p :for={{paragraph, index} <- Enum.with_index(@paragraphs)} class={["font-[MedievalSharp] text-[#2c1810] text-lg", index != length(@paragraphs) - 1 && "mb-4"]}>
+              {paragraph}
             </p>
           </div>
 
