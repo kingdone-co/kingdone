@@ -49,7 +49,7 @@ defmodule KingdoneWeb.AgentComponents do
           <div class="flex flex-wrap gap-3">
             <div :for={{button, index} <- Enum.with_index(@button)} class="flex-1">
               <button
-                phx-click={button["phx-click"]}
+                phx-click={button[:"phx-click"]}
                 class={[
                   "medieval-button w-full bg-gradient-to-r text-lg py-3 px-6",
                   "rounded border-2 shadow-md transition-all duration-300",
