@@ -17,9 +17,10 @@ defmodule KingdoneWeb.Router do
   scope "/", KingdoneWeb do
     pipe_through :browser
 
-    # get "/", PageController, :home
+    get "/", PageController, :home
 
     live "/onboarding", OnboardingLive
+    live "/palace", PalaceLive
   end
 
   # Other scopes may use custom stacks.

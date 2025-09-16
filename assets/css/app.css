@@ -3,6 +3,34 @@
 @source "../js";
 @source "../../lib/kingdone_web";
 
+@font-face {
+  font-family: 'MedievalSharp';
+  src: url('/fonts/MedievalSharp-Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MedievalSharp';
+  src: url('/fonts/MedievalSharp-BookOblique.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MedievalSharp';
+  src: url('/fonts/MedievalSharp-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MedievalSharp';
+  src: url('/fonts/MedievalSharp-BoldOblique.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
 body {
   font-family: 'MedievalSharp', serif;
 }

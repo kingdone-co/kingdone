@@ -8,12 +8,12 @@ defmodule KingdoneWeb.OnboardingLive do
   end
 
   def handle_params(params, _url, socket) do
-    {:noreply, assign(socket, step: params["step"] || "intro")}
+    {:noreply, assign(socket, step: params["step"] || "welcome")}
   end
 
   def render(assigns) do
     ~H"""
-    <div id="palace-chamber" class="min-h-screen relative bg-[#1a0f0f] bg-opacity-90 palace-bg">
+    <div class="min-h-screen relative palace-bg">
       <.agent_dialog
         character="elric"
         paragraphs={paragraphs(@step)}
@@ -26,7 +26,7 @@ defmodule KingdoneWeb.OnboardingLive do
     """
   end
 
-  defp paragraphs("intro") do
+  defp paragraphs("welcome") do
     [
       "Welcome to your palace, my liege. Though once proud, it now lies in disrepair. The walls are crumbling, the banners torn, and silence fills these halls.",
       "Yet take heart. With every quest you fulfill, this palace and the realm beyond shall rise again. Your progress will breathe glory back into these stones."
@@ -39,9 +39,18 @@ defmodule KingdoneWeb.OnboardingLive do
     ]
   end
 
-  def handle_event("continue", _params, socket) do
-    {:noreply, push_patch(socket, to: ~p"/onboarding?#{[step: next_step(socket.assigns.step)]}")}
+  defp paragraphs("intro") do
+    [
+      "Very well, [User’s Name]. From this day forward, your word shall shape the fate of this realm.",
+      "I am Elric the Steward — your loyal Taskmaster. My charge is to oversee your daily quests, keep chaos at bay, and ensure your crown is never unworn."
+    ]
   end
 
-  defp next_step("intro"), do: "set_name"
+  def handle_event("continue", _params, socket) do
+    {:noreply, push_navigate(socket, to: next_step(socket.assigns.step))}
+  end
+
+  defp next_step("welcome"), do: ~p"/onboarding?step=set_name"
+  defp next_step("set_name"), do: ~p"/onboarding?step=intro"
+  defp next_step("intro"), do: ~p"/palace?reclaiming=true"
 end

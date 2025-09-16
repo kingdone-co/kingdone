@@ -6,8 +6,10 @@ defmodule KingdoneWeb.AgentComponents do
     "elric" => "Elric the Steward"
   }
 
-  attr :paragraphs, :list, required: true
   attr :character, :string, required: true
+  attr :paragraphs, :list, default: []
+
+  slot :paragraph
 
   slot :button do
     attr :"phx-click", :string
@@ -43,6 +45,10 @@ defmodule KingdoneWeb.AgentComponents do
             </div>
             <p :for={paragraph <- @paragraphs} class="text-[#2c1810] text-lg mb-4 last:mb-0">
               {paragraph}
+            </p>
+
+            <p :for={paragraph <- @paragraph} class="text-[#2c1810] text-lg mb-4 last:mb-0">
+              {render_slot(paragraph)}
             </p>
           </div>
 
