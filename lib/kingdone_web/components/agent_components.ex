@@ -1,6 +1,6 @@
 defmodule KingdoneWeb.AgentComponents do
   use Phoenix.Component
-  use KingdoneWeb, :verified_routes
+  use KingdoneWeb, :html
 
   @characters %{
     "elric" => "Elric the Steward"
@@ -11,8 +11,17 @@ defmodule KingdoneWeb.AgentComponents do
 
   slot :paragraph
 
+  slot :input do
+    attr :name, :string
+    attr :value, :string
+    attr :placeholder, :string
+    attr :"phx-change", :string
+    attr :errors, :list
+  end
+
   slot :button do
     attr :"phx-click", :string
+    attr :"phx-value-clicked", :string
     attr :modifier, :string, values: ["primary", "secondary"]
   end
 
@@ -52,10 +61,26 @@ defmodule KingdoneWeb.AgentComponents do
             </p>
           </div>
 
+          <.form for={%{}}>
+            <div :for={input <- @input}>
+              <input
+                type="text"
+                name={input[:name] || "value"}
+                value={input[:value]}
+                placeholder={input[:placeholder] || "Enter your message..."}
+                class="w-full bg-[#f9f3e8] border-[3px] border-[#8B7355] rounded-lg text-[#2c1810] text-lg p-4 focus:border-[#c4a484] focus:ring-1 focus:ring-[#c4a484] placeholder:text-[#8B7355]/70 shadow-md"
+                autocomplete="off"
+                phx-change={input[:"phx-change"]}
+              />
+              <.error :for={msg <- input.errors}>{msg}</.error>
+            </div>
+          </.form>
+
           <div class="flex flex-wrap gap-3">
             <div :for={{button, index} <- Enum.with_index(@button)} class="flex-1">
               <button
                 phx-click={button[:"phx-click"]}
+                phx-value-clicked={button[:"phx-value-clicked"]}
                 class={[
                   "medieval-button w-full bg-gradient-to-r text-lg py-3 px-6",
                   "rounded border-2 shadow-md transition-all duration-300",
