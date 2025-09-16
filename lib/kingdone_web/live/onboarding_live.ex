@@ -11,6 +11,8 @@ defmodule KingdoneWeb.OnboardingLive do
     ~H"""
     <div id="palace-chamber" class="min-h-screen relative bg-[#1a0f0f] bg-opacity-90 palace-bg">
       <.steward_dialog
+        character="elric"
+        character_name="Elric the Steward"
         paragraphs={[
           "Greetings, my liege. I am Elric the Steward, sworn to guide your daily quests.",
           "Shall I show you how to marshal your tasks and projects?"

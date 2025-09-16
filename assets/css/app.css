@@ -13,9 +13,9 @@
 }
 
 .palace-bg {
-  background-image: url('/images/palace-bg.png');
+  background-image: url('/images/buildings/palace/bg.png');
   background-size: cover;
-  background-position: center;
+  background-position: bottom;
 }
 
 .medieval-button {

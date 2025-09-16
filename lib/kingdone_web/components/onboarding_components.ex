@@ -1,22 +1,27 @@
 defmodule KingdoneWeb.OnboardingComponents do
   use Phoenix.Component
+  use KingdoneWeb, :verified_routes
 
   attr :paragraphs, :list, required: true
+  attr :character, :string, required: true
+  attr :character_name, :string, required: true
 
   def steward_dialog(assigns) do
     ~H"""
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[800px] max-w-[95vw] bg-[#f5e6d3] bg-opacity-95 rounded-xl border-4 border-[#8B7355] shadow-[0_0_15px_rgba(0,0,0,0.3),inset_0_0_10px_rgba(139,115,85,0.2)] p-6 backdrop-blur-sm">
       <div class="flex items-start gap-6">
         <div class="flex-none w-[120px]">
-          <div class="relative">
+          <div class="space-y-2">
             <div class="w-[120px] h-[120px] bg-[#2c1810] rounded-lg p-1 border-2 border-[#8B7355] shadow-lg">
               <img
-                src="/images/elric-portrait.png"
-                alt="Elric the Steward"
+                src={~p"/images/characters/#{@character}/portrait.png"}
+                alt={@character_name}
                 class="w-full h-full object-cover rounded"
               />
             </div>
-
+            <div class="text-center font-[MedievalSharp] text-[#2c1810] text-sm font-bold">
+              {@character_name}
+            </div>
           </div>
         </div>
 
@@ -26,7 +31,13 @@ defmodule KingdoneWeb.OnboardingComponents do
             </div>
             <div class="absolute left-0 top-[14px] -translate-x-full w-0 h-0 border-t-[12px] border-t-transparent border-r-[20px] border-r-[#f9f3e8] border-b-[12px] border-b-transparent">
             </div>
-            <p :for={{paragraph, index} <- Enum.with_index(@paragraphs)} class={["font-[MedievalSharp] text-[#2c1810] text-lg", index != length(@paragraphs) - 1 && "mb-4"]}>
+            <p
+              :for={{paragraph, index} <- Enum.with_index(@paragraphs)}
+              class={[
+                "font-[MedievalSharp] text-[#2c1810] text-lg",
+                index != length(@paragraphs) - 1 && "mb-4"
+              ]}
+            >
               {paragraph}
             </p>
           </div>
@@ -51,7 +62,6 @@ defmodule KingdoneWeb.OnboardingComponents do
           </div>
         </div>
       </div>
-
     </div>
     """
   end
