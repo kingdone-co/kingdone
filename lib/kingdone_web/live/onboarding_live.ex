@@ -16,7 +16,11 @@ defmodule KingdoneWeb.OnboardingLive do
           "Greetings, my liege. I am Elric the Steward, sworn to guide your daily quests.",
           "Shall I show you how to marshal your tasks and projects?"
         ]}
-      />
+      >
+        <:button phx-click="start_onboarding">
+          Continue
+        </:button>
+      </.agent_dialog>
     </div>
     """
   end

@@ -9,6 +9,11 @@ defmodule KingdoneWeb.AgentComponents do
   attr :paragraphs, :list, required: true
   attr :character, :string, required: true
 
+  slot :button do
+    attr :"phx-click", :string
+    attr :modifier, :string, values: ["primary", "secondary"]
+  end
+
   def agent_dialog(assigns) do
     assigns = Map.put(assigns, :character_name, @characters[assigns.character])
 
@@ -36,32 +41,27 @@ defmodule KingdoneWeb.AgentComponents do
             </div>
             <div class="absolute left-0 top-[14px] -translate-x-full w-0 h-0 border-t-[12px] border-t-transparent border-r-[20px] border-r-[#f9f3e8] border-b-[12px] border-b-transparent">
             </div>
-            <p
-              :for={{paragraph, index} <- Enum.with_index(@paragraphs)}
-              class={[
-                "text-[#2c1810] text-lg",
-                index != length(@paragraphs) - 1 && "mb-4"
-              ]}
-            >
+            <p :for={paragraph <- @paragraphs} class="text-[#2c1810] text-lg mb-4 last:mb-0">
               {paragraph}
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div class="flex-1">
+            <div
+              :for={{button, index} <- Enum.with_index(@button)}
+              class="flex-1"
+            >
               <button
-                phx-click="start_onboarding"
-                class="medieval-button w-full bg-gradient-to-r from-[#8B7355] to-[#c4a484] text-[#f9f3e8] text-lg py-3 px-6 rounded border-2 border-[#8B7355] shadow-md hover:from-[#c4a484] hover:to-[#8B7355] transition-all duration-300"
+                phx-click={button["phx-click"]}
+                class={[
+                  "medieval-button w-full bg-gradient-to-r text-lg py-3 px-6",
+                  "rounded border-2 shadow-md transition-all duration-300",
+                  button_modifier_class(
+                    button[:modifier] || ((index == 0 && "primary") || "secondary")
+                  )
+                ]}
               >
-                Yes, Steward. Lead the way.
-              </button>
-            </div>
-            <div class="flex-1">
-              <button
-                phx-click="skip_onboarding"
-                class="medieval-button w-full bg-gradient-to-r from-[#4a4a4a] to-[#686868] text-[#f9f3e8] font-[MedievalSharp] text-lg py-3 px-6 rounded border-2 border-[#4a4a4a] shadow-md hover:from-[#686868] hover:to-[#4a4a4a] transition-all duration-300"
-              >
-                Later, I must gather my strength.
+                {render_slot(button)}
               </button>
             </div>
           </div>
@@ -69,5 +69,19 @@ defmodule KingdoneWeb.AgentComponents do
       </div>
     </div>
     """
+  end
+
+  defp button_modifier_class("primary") do
+    [
+      "from-[#8B7355] to-[#c4a484] text-[#f9f3e8]",
+      "border-[#8B7355] hover:from-[#c4a484] hover:to-[#8B7355]"
+    ]
+  end
+
+  defp button_modifier_class("secondary") do
+    [
+      "from-[#4a4a4a] to-[#686868] text-[#f9f3e8]",
+      "border-[#4a4a4a] hover:from-[#686868] hover:to-[#4a4a4a]"
+    ]
   end
 end
