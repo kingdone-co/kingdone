@@ -46,11 +46,8 @@ defmodule KingdoneWeb.AgentComponents do
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <div
-              :for={{button, index} <- Enum.with_index(@button)}
-              class="flex-1"
-            >
+          <div class="flex flex-wrap gap-3">
+            <div :for={{button, index} <- Enum.with_index(@button)} class="flex-1">
               <button
                 phx-click={button["phx-click"]}
                 class={[
