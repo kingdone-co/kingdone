@@ -1,12 +1,17 @@
-defmodule KingdoneWeb.OnboardingComponents do
+defmodule KingdoneWeb.AgentComponents do
   use Phoenix.Component
   use KingdoneWeb, :verified_routes
 
+  @characters %{
+    "elric" => "Elric the Steward"
+  }
+
   attr :paragraphs, :list, required: true
   attr :character, :string, required: true
-  attr :character_name, :string, required: true
 
-  def steward_dialog(assigns) do
+  def agent_dialog(assigns) do
+    assigns = Map.put(assigns, :character_name, @characters[assigns.character])
+
     ~H"""
     <div class="fixed bottom-8 left-1/2 -translate-x-1/2 w-[800px] max-w-[95vw] bg-[#f5e6d3] bg-opacity-95 rounded-xl border-4 border-[#8B7355] shadow-[0_0_15px_rgba(0,0,0,0.3),inset_0_0_10px_rgba(139,115,85,0.2)] p-6 backdrop-blur-sm">
       <div class="flex items-start gap-6">
@@ -19,7 +24,7 @@ defmodule KingdoneWeb.OnboardingComponents do
                 class="w-full h-full object-cover rounded"
               />
             </div>
-            <div class="text-center font-[MedievalSharp] text-[#2c1810] text-sm font-bold">
+            <div class="text-center text-sm font-bold">
               {@character_name}
             </div>
           </div>
@@ -34,7 +39,7 @@ defmodule KingdoneWeb.OnboardingComponents do
             <p
               :for={{paragraph, index} <- Enum.with_index(@paragraphs)}
               class={[
-                "font-[MedievalSharp] text-[#2c1810] text-lg",
+                "text-[#2c1810] text-lg",
                 index != length(@paragraphs) - 1 && "mb-4"
               ]}
             >
@@ -46,7 +51,7 @@ defmodule KingdoneWeb.OnboardingComponents do
             <div class="flex-1">
               <button
                 phx-click="start_onboarding"
-                class="medieval-button w-full bg-gradient-to-r from-[#8B7355] to-[#c4a484] text-[#f9f3e8] font-[MedievalSharp] text-lg py-3 px-6 rounded border-2 border-[#8B7355] shadow-md hover:from-[#c4a484] hover:to-[#8B7355] transition-all duration-300"
+                class="medieval-button w-full bg-gradient-to-r from-[#8B7355] to-[#c4a484] text-[#f9f3e8] text-lg py-3 px-6 rounded border-2 border-[#8B7355] shadow-md hover:from-[#c4a484] hover:to-[#8B7355] transition-all duration-300"
               >
                 Yes, Steward. Lead the way.
               </button>

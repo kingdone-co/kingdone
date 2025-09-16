@@ -3,12 +3,7 @@
 @source "../js";
 @source "../../lib/kingdone_web";
 
-@font-face {
-  font-family: 'MedievalSharp';
-  src: url('/fonts/MedievalSharp-Regular.woff2') format('woff2');
-}
-
-.medieval-serif {
+body {
   font-family: 'MedievalSharp', serif;
 }
 

@@ -1,18 +1,17 @@
 defmodule KingdoneWeb.OnboardingLive do
   use KingdoneWeb, :live_view
 
+  import KingdoneWeb.AgentComponents
+
   def mount(_params, _session, socket) do
     {:ok, assign(socket, page_title: "Welcome to your Realm")}
   end
 
-  import KingdoneWeb.OnboardingComponents
-
   def render(assigns) do
     ~H"""
     <div id="palace-chamber" class="min-h-screen relative bg-[#1a0f0f] bg-opacity-90 palace-bg">
-      <.steward_dialog
+      <.agent_dialog
         character="elric"
-        character_name="Elric the Steward"
         paragraphs={[
           "Greetings, my liege. I am Elric the Steward, sworn to guide your daily quests.",
           "Shall I show you how to marshal your tasks and projects?"
