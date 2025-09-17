@@ -61,7 +61,7 @@ defmodule KingdoneWeb.AgentComponents do
             </p>
           </div>
 
-          <.form for={%{}}>
+          <.form for={%{}} onsubmit="event.preventDefault(); document.querySelector('[phx-click=save_name]')?.click();">
             <div :for={input <- @input}>
               <input
                 type="text"
